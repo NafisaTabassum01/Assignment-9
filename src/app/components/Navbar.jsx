@@ -16,8 +16,8 @@ const Navbar = () => {
 
                 <div className='hidden lg:flex justify-around gap-5'>
                     <Link href={'/'}><p className='text-[18px] font-semibold text-[#163161]'>Home</p></Link>
-                    <Link href={'/'}><p className='text-[18px] font-semibold text-[#163161]'>Tutor</p></Link>
-                    <Link href={'/'}><p className='text-[18px] font-semibold text-[#163161]'>Add Tutor</p></Link>
+                    <Link href={'/allTutors'}><p className='text-[18px] font-semibold text-[#163161]'>Tutor</p></Link>
+                    <Link href={'/add-tutor'}><p className='text-[18px] font-semibold text-[#163161]'>Add Tutor</p></Link>
                     <Link href={'/'}><p className='text-[18px] font-semibold text-[#163161]'>My Tutors</p></Link>
                 </div>
 
