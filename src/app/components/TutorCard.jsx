@@ -1,5 +1,6 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FaLocationDot, FaGraduationCap } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
@@ -7,6 +8,7 @@ import { MdArrowOutward } from "react-icons/md";
 
 const TutorCard = ({ tutor }) => {
   const {
+    _id,
     TutorName,
     imageUrl,
     TeachingMode,
@@ -67,14 +69,12 @@ const TutorCard = ({ tutor }) => {
           </p>
         </div>
         <div className="text-right">
-            <Button type="submit"
-                    //   variant="outline"
-                      className=" rounded bg-[#163161] text-white">
-                       <MdArrowOutward /> Details
-                    </Button>
+           <Link href={`/allTutors/${_id}`}> <Button type="submit" className=" rounded bg-[#163161] text-white"> Details<MdArrowOutward /> </Button></Link>
 
             
-            </div>      </div>
+            </div>  
+            
+             </div>
     </div>
   );
 };
