@@ -196,8 +196,7 @@ const onSubmit =async (e)=>{
             <Button
               type="submit"
               variant="outline"
-              className=" rounded-none w-full bg-[#163161] text-white"
-            >
+              className=" rounded-none w-full bg-[#163161] text-white">
                 Add Tutor
             </Button>
           </form>

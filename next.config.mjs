@@ -8,6 +8,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "media.istockphoto.com",
       },
+      {
+        protocol: "https",
+        hostname: "pixabay.com",
+      },
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 
