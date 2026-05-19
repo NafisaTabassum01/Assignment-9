@@ -1,5 +1,6 @@
 
 
+import {DeleteAlert} from "@/app/components/DeleteAlert";
 import { EditModal } from "@/app/components/EditModal";
 import Image from "next/image";
 import React from "react";
@@ -36,9 +37,11 @@ const TutorDetailsPage = async ({ params }) => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-3 ">
+    <div className="w-7/12 mx-auto text-right mb-3"> 
+        <EditModal tutor={tutor}></EditModal>
+           <DeleteAlert tutor={tutor}></DeleteAlert></div>
 
       <div className="w-full lg:w-7/12 mx-auto bg-white shadow-2xl rounded-[30px] overflow-hidden">
-
         {/* Top Banner */}
         <div className="bg-linear-to-b from-[#163161] to-white h-40 relative">
           <div className="absolute left-1/2 -bottom-16 -translate-x-1/2">
@@ -54,10 +57,8 @@ const TutorDetailsPage = async ({ params }) => {
           </div>
         </div>
 
-        {/* Content */}
         <div className="pt-24 pb-10 px-5 lg:px-10">
 
-          {/* Name */}
           <div className="text-center mb-10">
             <h1 className="text-3xl font-bold text-[#163161]">
               {TutorName}
@@ -68,10 +69,8 @@ const TutorDetailsPage = async ({ params }) => {
             </p>
           </div>
 
-          {/* Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {/* Institution */}
             <div className="shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaGraduationCap className="text-[#163161] text-xl" />
@@ -85,7 +84,6 @@ const TutorDetailsPage = async ({ params }) => {
               </p>
             </div>
 
-            {/* Location */}
             <div className="shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaLocationDot className="text-[#163161] text-xl" />
@@ -99,7 +97,6 @@ const TutorDetailsPage = async ({ params }) => {
               </p>
             </div>
 
-            {/* Subject */}
             <div className="shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaBookOpen className="text-[#163161] text-xl" />
@@ -113,7 +110,7 @@ const TutorDetailsPage = async ({ params }) => {
               </p>
             </div>
 
-            {/* Teaching Mode */}
+
             <div className="shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaClock className="text-[#163161] text-xl" />
@@ -127,7 +124,7 @@ const TutorDetailsPage = async ({ params }) => {
               </p>
             </div>
 
-            {/* Fee */}
+
             <div className="shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaMoneyBillWave className="text-[#163161] text-xl" />
@@ -141,7 +138,6 @@ const TutorDetailsPage = async ({ params }) => {
               </p>
             </div>
 
-            {/* Slot */}
             <div className="shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaClock className="text-[#163161] text-xl" />
@@ -155,7 +151,6 @@ const TutorDetailsPage = async ({ params }) => {
               </p>
             </div>
 
-            {/* Availability */}
             <div className="md:col-span-2 shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaClock className="text-[#163161] text-xl" />
@@ -169,7 +164,6 @@ const TutorDetailsPage = async ({ params }) => {
               </p>
             </div>
 
-            {/* Session Date */}
             <div className="md:col-span-2 shadow-md rounded-2xl p-5 border border-gray-100">
               <div className="flex items-center gap-3 mb-2">
                 <FaCalendarDays className="text-[#163161] text-xl" />
@@ -185,12 +179,14 @@ const TutorDetailsPage = async ({ params }) => {
 
           </div>
 
-          {/* Button */}
           <div className="mt-10 text-center">
             <button className="bg-[#163161] hover:bg-[#22427d] transition-all text-white px-10 py-3 rounded text-lg font-semibold cursor-pointer shadow-lg">
               Book Session
             </button>
-            <EditModal tutor={tutor}></EditModal>
+            <div>
+             
+            </div>
+
           </div>
 
         </div>

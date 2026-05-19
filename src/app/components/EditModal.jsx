@@ -2,12 +2,14 @@
 
 import {Envelope} from "@gravity-ui/icons";
 import { FaEdit } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 import {Button, FieldError, Input, Label, Modal, Surface, TextField} from "@heroui/react";
 import { ListBox,Select, TextArea } from '@heroui/react';
 
 export function EditModal({tutor}) {
         const {
+            _id,
     TutorName,
     imageUrl,
     TeachingMode,
@@ -20,6 +22,8 @@ export function EditModal({tutor}) {
     AvailableDaysTime,
   } = tutor;
 
+  const router = useRouter();
+
 const onSubmit =async (e)=>{
   e.preventDefault()
   const formData = new FormData(e.currentTarget)
@@ -30,22 +34,27 @@ const onSubmit =async (e)=>{
 
 
 
-//   const res = await fetch('http://localhost:5000/tutor',{
-//         method:'POST',
-//     headers:{
-//         'content-type' : 'application/json'
+  const res = await fetch(`http://localhost:5000/tutor/${_id}`,{
+        method:'PATCH',
+    headers:{
+        'content-type' : 'application/json'
 
-//     },
-//     body: JSON.stringify(tutor)
+    },
+    body: JSON.stringify(tutor)
 
-//   })
-//   const data = await res.json()
+  })
+  const data = await res.json()
+    if (data.modifiedCount > 0) {
+    router.refresh();
+  }
+
+  console.log(data)
  // toast
 }
 
   return (
     <Modal>
-      <Button className={'bg-[#163161]'}>Edit</Button>
+      <Button className={'border-2 font-semibold rounded border-[#163161] text-[#163161] bg-white'}>Edit</Button>
       <Modal.Backdrop>
         <Modal.Container placement="auto">
           <Modal.Dialog className="sm:max-w-md">
@@ -229,14 +238,7 @@ const onSubmit =async (e)=>{
                             </div>
                 
                             {/* Buttons */}
-                
-                          
-                          </form>
-
-
-              </Surface>
-            </Modal.Body>
-            <Modal.Footer>
+                <Modal.Footer>
               <Button slot="close" className={'border border-[#163161] bg-white text-[#163161] rounded-none'}>
                 Cancel
               </Button>
@@ -247,6 +249,13 @@ const onSubmit =async (e)=>{
      className=" rounded-none bg-[#163161] text-white">
        Save
                             </Button>            </Modal.Footer>
+                          
+                          </form>
+
+
+              </Surface>
+            </Modal.Body>
+            
           </Modal.Dialog>
         </Modal.Container>
       </Modal.Backdrop>
