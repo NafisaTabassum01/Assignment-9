@@ -51,9 +51,9 @@ const Navbar = () => {
             </p>
           </Link>
 
-          <Link href="/my-tutors">
+          <Link href="/my-bookings">
             <p className="text-[18px] font-semibold text-[#163161]">
-              My Tutors
+My Booked Sessions
             </p>
           </Link>
         </div>
@@ -260,7 +260,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <Link href="/my-tutors">My Tutors</Link>
+                <Link href="/my-tutors">My Booked Sessions</Link>
               </li>
             </ul>
 
