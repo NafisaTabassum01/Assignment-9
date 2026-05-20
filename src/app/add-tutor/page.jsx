@@ -37,7 +37,7 @@ const onSubmit =async (e)=>{
               <div className="md:col-span-2 ">
                 <TextField name="TutorName" isRequired>
                   <Label>Tutor Name</Label>
-                  <Input placeholder="Tutor Name" className="rounded-2xl border border-gray-100" />
+                  <Input placeholder="Tutor Name" className="rounded-2xl border border-gray-100 w-full shadow" />
                   <FieldError />
                 </TextField>
               </div>
@@ -49,7 +49,7 @@ const onSubmit =async (e)=>{
                   <Input
                     type="url"
                     placeholder="https://example.com/profile.jpg"
-                    className="rounded-2xl border border-gray-100"
+                    className="rounded-2xl border border-gray-100 w-full shadow"
                   />
                   <FieldError />
                 </TextField>
@@ -62,11 +62,11 @@ const onSubmit =async (e)=>{
                 <Select
                   name="Subject"
                   isRequired
-                  className="w-full"
+                  className="w-full "
                   placeholder="Select category"
                 >
                   <Label>Subject</Label>
-                  <Select.Trigger className="rounded-2xl">
+                  <Select.Trigger className="rounded-2xl shadow">
                     <Select.Value />
                     <Select.Indicator />
                   </Select.Trigger>
@@ -110,7 +110,7 @@ const onSubmit =async (e)=>{
                   placeholder="Select category"
                 >
                   <Label>Teaching Mode</Label>
-                  <Select.Trigger className="rounded-2xl">
+                  <Select.Trigger className="rounded-2xl shadow">
                     <Select.Value />
                     <Select.Indicator />
                   </Select.Trigger>
@@ -140,7 +140,7 @@ const onSubmit =async (e)=>{
                 <Input
                   type="number"
                   placeholder="Total slot"
-                  className="rounded-2xl border border-gray-100"
+                  className="rounded-2xl shadow border border-gray-100 w-full"
                 />
                 <FieldError />
               </TextField>
@@ -151,7 +151,7 @@ const onSubmit =async (e)=>{
                 <Input
                 type="number"
                   placeholder="Hourly fee"
-                  className="rounded-2xl border border-gray-100"
+                  className="rounded-2xl border shadow border-gray-100 w-full"
                 />
                 <FieldError />
               </TextField>
@@ -160,7 +160,7 @@ const onSubmit =async (e)=>{
               <div className="md:col-span-2">
                 <TextField name="SessionStartingDate" type="date" isRequired>
                   <Label>Session Starting Date</Label>
-                  <Input type="date" className="rounded-2xl border border-gray-100" />
+                  <Input type="date" className="rounded-2xl border  shadow border-gray-100 w-full" />
                   <FieldError />
                 </TextField>
               </div>
@@ -171,21 +171,21 @@ const onSubmit =async (e)=>{
               <div className="md:col-span-2">
                <TextField name="AvailableDaysTime" isRequired>
                   <Label>Available Days and Available time slot</Label>
-                  <Input placeholder="Sun - Thu 5:00 PM - 8:00 PM" className="rounded-2xl border border-gray-100" />
+                  <Input placeholder="Sun - Thu | 5:00 PM - 8:00 PM" className="rounded-2xl border border-gray-100 w-full shadow" />
                   <FieldError />
                 </TextField>
               </div>
               <div className="md:col-span-2">
                <TextField name="Location" isRequired>
                   <Label>Location</Label>
-                  <Input placeholder="(Area/City)" className="rounded-2xl border border-gray-100" />
+                  <Input placeholder="(Area/City)" className="rounded-2xl border border-gray-100 w-full shadow" />
                   <FieldError />
                 </TextField>
               </div>
               <div className="md:col-span-2">
                <TextField name="InstitutionExperience" isRequired>
                   <Label>Institution & Experience</Label>
-                  <Input placeholder="BUET | 2 years" className="rounded-2xl border border-gray-100" />
+                  <Input placeholder="BUET | 2 years" className="rounded-2xl border border-gray-100  w-full shadow" />
                   <FieldError />
                 </TextField>
               </div>

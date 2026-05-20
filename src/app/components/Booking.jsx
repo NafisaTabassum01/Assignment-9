@@ -30,7 +30,7 @@ export function Booking({ tutor }) {
       TutorName,
       tutorId: _id,
       userEmail: user?.email,
-      userId :user.id,
+      userId :user?.id,
     };
  
     console.log(bookingData)

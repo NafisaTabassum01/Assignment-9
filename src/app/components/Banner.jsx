@@ -52,19 +52,9 @@ const Banner = () => {
     return () => clearInterval(interval);
   }, [paused]);
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrent((prev) =>
-      prev === 0 ? slides.length - 1 : prev - 1
-    );
-  };
-
   return (
     <div
-      className="relative w-full h-[500px] overflow-hidden"
+      className="relative w-full h-[600px] md:h-[500px] overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -75,19 +65,22 @@ const Banner = () => {
         {slides.map((slide) => (
           <div
             key={slide.id}
-            className="w-full h-full shrink-0 flex items-center justify-around px-10 text-[#163161]"
-          >
+            className=" w-full h-full shrink-0 flex flex-col md:flex-row items-center justify-center md:justify-around px-6 md:px-10 text-[#163161] gap-6 md:gap-0">
             {/* TEXT */}
-            <div className="max-w-xl space-y-4">
-              <h1 className="text-3xl font-bold">{slide.title}</h1>
-              <p className="text-gray-600 text-[18px]">
+            <div className="max-w-xl space-y-4 text-center md:text-left">
+              <h1 className="text-2xl md:text-3xl font-bold">
+                {slide.title}
+              </h1>
+
+              <p className="text-gray-600 text-[16px] md:text-[18px]">
                 {slide.description}
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start">
                 <button className="bg-[#163161] text-white px-4 py-2 rounded">
                   {slide.button1}
                 </button>
+
                 <button className="border-2 border-[#163161] px-4 py-2 rounded text-[#163161] font-semibold">
                   {slide.button2}
                 </button>
@@ -95,34 +88,40 @@ const Banner = () => {
             </div>
 
             {/* IMAGE */}
-            <Image
-              src={slide.image}
-              alt={slide.title}
-              width={400}
-              height={300}
-              className=" object- rounded-xl"
-            />
+            <div className="w-full md:w-auto flex justify-center">
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                width={350}
+                height={250}
+                className="w-[250px] sm:w-[300px] md:w-[400px] h-auto object-contain rounded-xl"
+              />
+            </div>
           </div>
         ))}
       </div>
 
       {/* ARROWS */}
       <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl opacity-60 hover:opacity-100"
+        onClick={() =>
+          setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
+        }
+        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 text-2xl opacity-60 hover:opacity-100"
       >
         <IoIosArrowBack />
       </button>
 
       <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl opacity-60 hover:opacity-100"
+        onClick={() =>
+          setCurrent((prev) => (prev + 1) % slides.length)
+        }
+        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 text-2xl opacity-60 hover:opacity-100"
       >
         <IoIosArrowForward />
       </button>
 
       {/* DOTS */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}

@@ -16,6 +16,7 @@ import React from "react";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
+import Link from "next/link";
 
 
 const LoginPage = () => {
@@ -60,6 +61,7 @@ const handleGoogleSignin = async () => {
         <h1 className="text-3xl font-bold mb-2 text-[#163161] text-center">
           Login
         </h1>
+        <div className="text-center"><Link href={'/signup'} className="text-blue-500 underline underline-offset-2 cursor-pointer pb-1">Don't have and account?Register</Link></div>
 
         <p className="text-gray-500 mb-6 text-[16px] text-center">
       Welcome back! Continue your learning journey.
