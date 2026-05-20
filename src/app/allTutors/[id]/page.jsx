@@ -47,7 +47,7 @@ const TutorDetailsPage = async ({ params }) => {
         {/* Top Banner */}
         <div className="bg-linear-to-b from-[#163161] to-white h-40 relative">
           <div className="absolute left-1/2 -bottom-16 -translate-x-1/2">
-            <div className="border-[2px] border-[#163161] rounded-full shadow-xl">
+            <div className="border-3 border-[#163161] rounded-full shadow-xl">
               <Image
                 src={imageUrl}
                 alt={TutorName}

@@ -36,8 +36,6 @@ const LoginPage = () => {
 
     if (data) {
         alert('login successfull')
-      // router.push("/");
-      // router.refresh();
       redirect("/")
     }
 
