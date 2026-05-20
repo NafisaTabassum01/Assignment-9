@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import notFound from "../assets/download.png";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -27,12 +28,12 @@ export default function NotFound() {
         </p>
 
         {/* Button */}
-        <button
-          onClick={() => (window.location.href = "/")}
-          className="px-6 py-3 rounded-full bg-[#163161] hover:bg-[#06327de0] transition shadow-lg"
+        <Link
+        href={'/'}
+          className="px-6 py-3 rounded-full bg-[#163161] hover:bg-[#06327de0] transition shadow-lg mb-10"
         >
           Go to Home
-        </button>
+        </Link>
 
       </div>
     </div>

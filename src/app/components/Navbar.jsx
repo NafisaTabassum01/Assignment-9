@@ -1,56 +1,67 @@
-import Link from 'next/link';
-import React from 'react';
-import { FaGraduationCap, FaUserCircle } from "react-icons/fa";
+
+
+"use client";
+
+import { authClient } from "@/lib/auth-client";
+import { Avatar, Button } from "@heroui/react";
+import Link from "next/link";
+import React from "react";
+import { FaGraduationCap } from "react-icons/fa";
 
 const Navbar = () => {
-    return (
-        <div className='shadow bg-[#bde8f550]'>
-            <div className='flex justify-between items-center w-10/12 mx-auto py-3'>
 
-                <Link href={'/'}>
-                    <div className='relative inline-block font-extrabold flex text-[28px] text-[#163161]'>
-                        <FaGraduationCap className="absolute -top-3 -left-2 text-[#163161]" />
-                        MediQueue
-                    </div>
-                </Link>
+  const [imgLoading, setImgLoading] = React.useState(true);
 
-                <div className='hidden lg:flex justify-around gap-5'>
-                    <Link href={'/'}><p className='text-[18px] font-semibold text-[#163161]'>Home</p></Link>
-                    <Link href={'/allTutors'}><p className='text-[18px] font-semibold text-[#163161]'>Tutor</p></Link>
-                    <Link href={'/add-tutor'}><p className='text-[18px] font-semibold text-[#163161]'>Add Tutor</p></Link>
-                    <Link href={'/'}><p className='text-[18px] font-semibold text-[#163161]'>My Tutors</p></Link>
-                </div>
 
-                <div className='flex items-center gap-4'>
+  const { data: session } = authClient.useSession();
 
-                    <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button">
-                            <FaUserCircle className="text-[32px] text-[#163161]" />
-                        </div>
+  const user = session?.user;
+  
+  const handleSignOut = async ()=>{
+     await authClient.signOut();
+  }
 
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content bg-white rounded-box mt-3 w-40 p-2 shadow z-50">
-                            <li><Link href="/">Profile</Link></li>
-                            <li><Link href="/login">Login</Link></li>
-                            <li><Link href="/signup">Register</Link></li>
-                        </ul>
-                    </div>
+  return (
+    <div className="shadow bg-[#bde8f550]">
+<div className="flex justify-between items-center w-full px-4 md:w-10/12 md:mx-auto py-3">
+        <Link href="/">
+          <div className="relative font-extrabold flex text-[28px] text-[#163161]">
+            <FaGraduationCap className="absolute -top-3 -left-2 text-[#163161]" />
+            MediQueue
+          </div>
+        </Link>
 
-                    <div className='hidden lg:flex gap-3'>
-                        <Link href={'/'}>
-                            <p className="border border-[#163161] px-2 py-1.5 rounded text-[#163161] font-semibold">
-                                Login
-                            </p>
-                        </Link>
 
-                        <Link href={'/'}>
-                            <p className="bg-[#163161] text-white px-2 py-2 rounded">
-                                Register
-                            </p>
-                        </Link>
-                        <div></div>
-                    </div>
+        <div className="hidden lg:flex justify-around gap-5">
+          <Link href="/">
+            <p className="text-[18px] font-semibold text-[#163161]">
+              Home
+            </p>
+          </Link>
 
-<label className="swap swap-rotate">
+          <Link href="/allTutors">
+            <p className="text-[18px] font-semibold text-[#163161]">
+              Tutor
+            </p>
+          </Link>
+
+          <Link href="/add-tutor">
+            <p className="text-[18px] font-semibold text-[#163161]">
+              Add Tutor
+            </p>
+          </Link>
+
+          <Link href="/my-tutors">
+            <p className="text-[18px] font-semibold text-[#163161]">
+              My Tutors
+            </p>
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-4">
+
+          
+          <label className="swap swap-rotate">
   {/* this hidden checkbox controls the state */}
 <input type="checkbox" className="theme-controller" value="dark" />
   {/* sun icon */}
@@ -72,39 +83,193 @@ const Navbar = () => {
   </svg>
 </label>
 
+          {user ? (
+            <>
 
+              {/* LARGE DEVICE */}
+              <div className="hidden md:flex items-center gap-3">
 
-                    <div className="dropdown dropdown-end lg:hidden">
-                        <div tabIndex={0} role="button">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6 text-[#163161]"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h8m-8 6h16"
-                                />
-                            </svg>
-                        </div>
+                <div className="dropdown dropdown-end">
 
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content bg-white rounded-box mt-3 w-52 p-2 shadow z-50">
-                            <li><Link href="/">Home</Link></li>
-                            <li><Link href="/">Tutor</Link></li>
-                            <li><Link href="/">Add Tutor</Link></li>
-                            <li><Link href="/">My Tutors</Link></li>
-                        </ul>
-                    </div>
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="cursor-pointer"
+                  >
+                    <Avatar>
+                      <Avatar.Image
+                      referrerPolicy="no-referrer"
+                        alt="user"
+                        src={user?.image}
+                      />
+                      <Avatar.Fallback>
+                        {user.name.charAt(0)}
+                      </Avatar.Fallback>
+                    </Avatar>
+                  </div>
+
+                  <ul className="menu menu-sm dropdown-content bg-white rounded-box mt-3 w-40 p-2 shadow z-50">
+                    <li>
+                      <Link href="/profile">
+                        Profile
+                      </Link>
+                    </li>
+                  </ul>
 
                 </div>
 
+                <Button onClick={handleSignOut} className="bg-[#163161] text-white px-4 py-2 rounded-lg hover:bg-[#0f2447] transition">
+                  Logout
+                </Button>
+
+              </div>
+
+              {/* MOBILE USER DROPDOWN */}
+              <div className="dropdown dropdown-end md:hidden">
+
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="flex items-center gap-1 cursor-pointer"
+                >
+                  <Avatar>
+                    <Avatar.Image
+                      alt="user"
+                      src={user?.image}
+                    />
+                    <Avatar.Fallback>
+                      {user?.name}
+                    </Avatar.Fallback>
+                  </Avatar>
+
+                  <svg
+                    className="h-4 w-4 text-[#163161]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+
+                <ul className="menu menu-sm dropdown-content bg-white rounded mt-3 w-44 p-2 shadow z-50">
+                  <li className="w-full hover:bg-gray-200 text-[#163161] border-gray-100">
+                    <Link href="/profile">
+                      Profile
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Button onClick={handleSignOut} className="text-red-500 w-full bg-white border-2 border-red-500">
+                      Logout
+                    </Button>
+                  </li>
+                </ul>
+
+              </div>
+            </>
+          ) : (
+            <>
+<div className="hidden lg:flex gap-3">
+  <Link href="/login">
+    <Button className="bg-[#163161] text-white px-4 py-2 rounded-lg">
+      Login
+    </Button>
+  </Link>
+
+  <Link href="/signup">
+    <Button className="border-2 border-[#163161] text-[#163161] px-4 py-2 rounded-lg bg-white font-semibold">
+      Register
+    </Button>
+  </Link>
+</div>
+
+
+
+
+<div className="dropdown dropdown-end lg:hidden">
+  
+  <div tabIndex={0} role="button" className="flex items-center">
+    <svg
+      className="h-6 w-6 text-[#163161]"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+  </div>
+
+  <ul className="menu menu-sm dropdown-content bg-white rounded-box mt-3 w-40 p-2 shadow z-50">
+    <li>
+      <Link href="/login">Login</Link>
+    </li>
+    <li>
+      <Link href="/signup">Register</Link>
+    </li>
+  </ul>
+
+</div>
+</>
+          )}
+
+
+
+          <div className="dropdown dropdown-end lg:hidden">
+
+            <div tabIndex={0} role="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-[#163161]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
             </div>
+
+            <ul className="menu menu-sm dropdown-content bg-white rounded-box mt-3 w-52 p-2 shadow z-50">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+
+              <li>
+                <Link href="/allTutors">Tutor</Link>
+              </li>
+
+              <li>
+                <Link href="/add-tutor">Add Tutor</Link>
+              </li>
+
+              <li>
+                <Link href="/my-tutors">My Tutors</Link>
+              </li>
+            </ul>
+
+          </div>
+
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

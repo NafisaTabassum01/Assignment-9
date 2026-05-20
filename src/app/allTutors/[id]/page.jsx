@@ -1,5 +1,6 @@
 
 
+import { Booking } from "@/app/components/Booking";
 import {DeleteAlert} from "@/app/components/DeleteAlert";
 import { EditModal } from "@/app/components/EditModal";
 import Image from "next/image";
@@ -34,6 +35,7 @@ const TutorDetailsPage = async ({ params }) => {
     SessionStartingDate,
     AvailableDaysTime,
   } = tutor;
+  
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-3 ">
@@ -180,17 +182,15 @@ const TutorDetailsPage = async ({ params }) => {
           </div>
 
           <div className="mt-10 text-center">
-            <button className="bg-[#163161] hover:bg-[#22427d] transition-all text-white px-10 py-3 rounded text-lg font-semibold cursor-pointer shadow-lg">
-              Book Session
-            </button>
+             <Booking tutor={tutor}></Booking>
             <div>
-             
             </div>
 
           </div>
 
         </div>
       </div>
+
     </div>
   );
 };
