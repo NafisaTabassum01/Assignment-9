@@ -21,11 +21,19 @@ const onSubmit =async (e)=>{
 
 
 
-  const tutorData = {
-    ...tutor,
-    userId: user?.id,
-    userEmail: user?.email,
-  };
+  // const tutorData = {
+  //   ...tutor,
+  //   userId: user?.id,
+  //   userEmail: user?.email,
+  // };
+
+const tutorData = {
+  ...tutor,
+  TotalSlot: Number(tutor.TotalSlot),
+  HourlyFee: Number(tutor.HourlyFee),
+  userId: user?.id,
+  userEmail: user?.email,
+};
 
 console.log(tutorData)
 

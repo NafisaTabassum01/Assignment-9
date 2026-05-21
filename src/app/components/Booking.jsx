@@ -1,18 +1,12 @@
+
+
 "use client";
 
 import { useState } from "react";
-import {
-  Button,
-  Input,
-  Label,
-  Modal,
-  Surface,
-  TextField,
-} from "@heroui/react";
+import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { FaGraduationCap } from "react-icons/fa6";
 import { authClient } from "@/lib/auth-client";
-import toast, { Toaster } from 'react-hot-toast';
-
+import toast from "react-hot-toast";
 
 export function Booking({ tutor }) {
   const { TutorName, _id } = tutor;
@@ -23,43 +17,58 @@ export function Booking({ tutor }) {
   const [studentName, setStudentName] = useState("");
   const [phone, setPhone] = useState("");
 
-const handleBooking = async () => {
-  if (!studentName.trim()) {
-    toast.error("Student name is required");
-    return;
-  }
+  const handleBooking = async () => {
+    if (!studentName.trim()) return toast.error("Student name is required");
+    if (!phone.trim()) return toast.error("Phone number is required");
 
-  if (!phone.trim()) {
-    toast.error("Phone number is required");
-    return;
-  }
+    try {
+      // SLOT CHECK + DECREMENT
+      const patchRes = await fetch(
+        `http://localhost:5000/tutor/slot/${_id}`,
+        { method: "PATCH" }
+      );
 
-  const bookingData = {
-    studentName,
-    phone,
-    TutorName,
-    tutorId: _id,
-    userEmail: user?.email,
-    userId: user?.id,
-  };
+      const text = await patchRes.text();
+      let patchData = {};
 
-  
+      try {
+        patchData = text ? JSON.parse(text) : {};
+      } catch {
+        return toast.error("Server error");
+      }
 
-    console.log(bookingData)
-    
-    const res =await fetch('http://localhost:5000/booking',{
-        
+      if (!patchRes.ok) {
+        return toast.error(patchData.message || "Slot update failed");
+      }
+
+      // BOOKING CREATE
+      const bookingRes = await fetch("http://localhost:5000/booking", {
         method: "POST",
-        headers:{
-            'content-type' : 'application/json'
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          studentName,
+          phone,
+          TutorName,
+          tutorId: _id,
+          userEmail: user?.email,
+          userId: user?.id,
+        }),
+      });
 
-        },
-        body: JSON.stringify(bookingData)
-    })
-     const data  = await res.json()
-   
-     toast.success("booking confirmed!")
-};
+      if (!bookingRes.ok) {
+        return toast.error("Booking failed");
+      }
+
+      setStudentName("");
+      setPhone("");
+
+      window.location.reload();
+      toast.success("Booking confirmed!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    }
+  };
 
   return (
     <Modal>
@@ -90,60 +99,35 @@ const handleBooking = async () => {
             <Modal.Body className="p-6">
               <Surface variant="default">
                 <form className="flex flex-col gap-4">
-                  <TextField
-                    className="w-full"
-                    name="studentName"
-                    type="text"
-                    variant="secondary"
-                  >
+                  <TextField className="w-full">
                     <Label>Student Name</Label>
                     <Input
-                       required
-                      placeholder="Enter your name"
                       value={studentName}
                       onChange={(e) => setStudentName(e.target.value)}
+                      placeholder="Enter your name"
                     />
                   </TextField>
 
-                  <TextField
-                    className="w-full"
-                    name="phone"
-                    type="tel"
-                    variant="secondary"
-                  >
+                  <TextField className="w-full">
                     <Label>Phone</Label>
                     <Input
-                      required
-                      placeholder="Enter your phone number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Enter your phone number"
                     />
                   </TextField>
 
-                  <TextField
-                    className="w-full"
-                    name="tutorId"
-                    variant="secondary"
-                  >
+                  <TextField className="w-full">
                     <Label>Tutor Id</Label>
                     <Input value={_id} readOnly />
                   </TextField>
 
-                  <TextField
-                    className="w-full"
-                    name="tutorName"
-                    variant="secondary"
-                  >
+                  <TextField className="w-full">
                     <Label>Tutor Name</Label>
                     <Input value={TutorName} readOnly />
                   </TextField>
 
-                  <TextField
-                    className="w-full"
-                    name="email"
-                    type="email"
-                    variant="secondary"
-                  >
+                  <TextField className="w-full">
                     <Label>Student Email</Label>
                     <Input value={user?.email || ""} readOnly />
                   </TextField>
@@ -152,18 +136,14 @@ const handleBooking = async () => {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button
-                slot="close"
-                variant="secondary"
-                className={"text-[#163161] rounded"}
-              >
+              <Button slot="close" variant="secondary" className="text-[#163161]">
                 Cancel
               </Button>
 
               <Button
                 onClick={handleBooking}
                 slot="close"
-                className={"bg-[#163161] text-white rounded"}
+                className="bg-[#163161] text-white"
               >
                 Confirm booking
               </Button>
@@ -174,5 +154,3 @@ const handleBooking = async () => {
     </Modal>
   );
 }
-
-
