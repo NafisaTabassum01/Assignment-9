@@ -13,13 +13,38 @@ const MyTutor = () => {
 
   const [tutors, setTutors] = useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (!user?.id) return;
+
+  //   fetch(`http://localhost:5000/tutor/user/${user.id}`)
+  //     .then(res => res.json())
+  //     .then(data => setTutors(data));
+  // }, [user?.id]);
+
+useEffect(() => {
+  const fetchData = async () => {
     if (!user?.id) return;
 
-    fetch(`http://localhost:5000/tutor/user/${user.id}`)
-      .then(res => res.json())
-      .then(data => setTutors(data));
-  }, [user?.id]);
+    const session = await authClient.getSession();
+
+    const token = session?.data?.token;
+
+    const res = await fetch(
+      `http://localhost:5000/tutor/user/${user.id}`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    setTutors(data);
+  };
+
+  fetchData();
+}, [user?.id]);
 
   return (
     <div className="w-10/12 mx-auto mt-10">

@@ -4,6 +4,8 @@ import { Booking } from "@/app/components/Booking";
 import {DeleteAlert} from "@/app/components/DeleteAlert";
 import { EditModal } from "@/app/components/EditModal";
 import MyTutor from "@/app/components/MyTutor";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import React from "react";
 import {
@@ -18,9 +20,16 @@ import {
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:5000/tutor/${id}`, {
-    cache: "no-store",
-  });
+const {token} = await auth.api.getToken({
+  headers : await headers()
+})
+
+const res = await fetch(`http://localhost:5000/tutor/${id}`, {
+  
+  headers: {
+    authorization : `Bearer ${token}`
+  },
+});
 
   const tutor = await res.json();
 

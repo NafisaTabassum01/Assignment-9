@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import toast from "react-hot-toast";
 
@@ -7,10 +8,15 @@ export function BookingCancle({ booking }) {
   const { TutorName, _id } = booking;
 
 const handleCancleBooking = async ()=>{
+
+  const {data : tokenData} = await authClient.token()
+  console.log(tokenData)
+  
     const res = await fetch(`http://localhost:5000/booking/${_id}`,{
         method: "DELETE",
       headers: {
         "content-type": "application/json",
+        authorization : `Bearer ${tokenData?.token}` ,
       },
 
     })

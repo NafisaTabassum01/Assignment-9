@@ -41,10 +41,19 @@ export function Booking({ tutor }) {
         return toast.error(patchData.message || "Slot update failed");
       }
 
-      // BOOKING CREATE
+
+      const {data : tokenData} = await authClient.token()
+      console.log(tokenData)
+
+
       const bookingRes = await fetch("http://localhost:5000/booking", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { 'content-type': 'application/json',
+                   authorization : `Bearer ${tokenData?.token}` 
+
+        },
+
+
         body: JSON.stringify({
           studentName,
           phone,

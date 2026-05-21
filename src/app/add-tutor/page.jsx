@@ -21,12 +21,6 @@ const onSubmit =async (e)=>{
 
 
 
-  // const tutorData = {
-  //   ...tutor,
-  //   userId: user?.id,
-  //   userEmail: user?.email,
-  // };
-
 const tutorData = {
   ...tutor,
   TotalSlot: Number(tutor.TotalSlot),
@@ -35,14 +29,17 @@ const tutorData = {
   userEmail: user?.email,
 };
 
-console.log(tutorData)
+// console.log(tutorData)
 
+  const {data : tokenData} = await authClient.token()
+  console.log(tokenData)
 
 
   const res = await fetch('http://localhost:5000/tutor',{
         method:'POST',
     headers:{
-        'content-type' : 'application/json'
+        'content-type' : 'application/json',
+        authorization : `Bearer ${tokenData?.token}`
 
     },
     // body: JSON.stringify(tutor)

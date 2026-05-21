@@ -11,6 +11,7 @@ import {
 } from "@heroui/react";
 import { ListBox, Select } from "@heroui/react";
 import { FaEdit } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
 
 export function EditModal({ tutor }) {
   const router = useRouter();
@@ -42,10 +43,16 @@ export function EditModal({ tutor }) {
       HourlyFee: Number(data.HourlyFee),
     };
 
+
+    const {data : tokenData} = await authClient.token()
+    console.log(tokenData)
+    
     const res = await fetch(`http://localhost:5000/tutor/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
+        authorization : `Bearer ${tokenData?.token}` 
+
       },
       body: JSON.stringify(updatedTutor),
     });
