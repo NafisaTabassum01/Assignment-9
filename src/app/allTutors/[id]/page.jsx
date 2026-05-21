@@ -3,6 +3,7 @@
 import { Booking } from "@/app/components/Booking";
 import {DeleteAlert} from "@/app/components/DeleteAlert";
 import { EditModal } from "@/app/components/EditModal";
+import MyTutor from "@/app/components/MyTutor";
 import Image from "next/image";
 import React from "react";
 import {
@@ -39,9 +40,6 @@ const TutorDetailsPage = async ({ params }) => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-3 ">
-    <div className="w-7/12 mx-auto text-right mb-3"> 
-        <EditModal tutor={tutor}></EditModal>
-           <DeleteAlert tutor={tutor}></DeleteAlert></div>
 
       <div className="w-full lg:w-7/12 mx-auto bg-white shadow-2xl rounded-[30px] overflow-hidden">
         {/* Top Banner */}
@@ -190,7 +188,6 @@ const TutorDetailsPage = async ({ params }) => {
 
         </div>
       </div>
-
     </div>
   );
 };

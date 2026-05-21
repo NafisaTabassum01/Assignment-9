@@ -59,8 +59,6 @@ const handleGoogleSignin = async () => {
   });
 }
 
-
-
   return (
     <div className=" max-w-7xl mx-auto min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center gap-10 py-10 rounded-2xl my-16  shadow-2xl md:w-8/12" >
 

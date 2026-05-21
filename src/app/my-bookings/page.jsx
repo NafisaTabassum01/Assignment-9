@@ -1,51 +1,99 @@
+
 import { auth } from '@/lib/auth';
-import { Button } from '@heroui/react';
 import { headers } from 'next/headers';
 import React from 'react';
+import Image from 'next/image';
 import { BookingCancle } from '../components/BookingCancle';
 
 const MyBookingPage = async () => {
 
-    const session = await auth.api.getSession({
-        headers: await headers()
-    })
-const user = session?.user
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
 
+  const user = session?.user;
 
-const res = await fetch(`http://localhost:5000/booking/${user?.id}`)
-const bookings = await res.json()
-console.log(bookings)
+  const res = await fetch(`http://localhost:5000/booking/${user?.id}`, {
+    cache: "no-store",
+  });
 
-    return (
-        <div className=''>
-            <h1>my boking sessions</h1>
-            <table className='w-7/12 mx-auto my-10'>
-                <thead>
-                          <tr className="bg-gray-100">
-        <th className="border border-gray-400 p-2">Tutor Name</th>
-        <th className="border border-gray-400 p-2">Student Name</th>
-        <th className="border border-gray-400 p-2">Student Email</th>
-        <th className="border border-gray-400 p-2">Status</th>
-        <th className="border border-gray-400 p-2">Cancel</th>
-</tr>
-</thead>
-  
-  <tbody>
-    {bookings.map(booking=>
-    
-    <tr key={booking._id} className="text-center">
-    <td className="border border-gray-400 p-2">{booking.TutorName}</td>
-    <td className="border border-gray-400 p-2">{booking.studentName}</td>
-    <td className="border border-gray-400 p-2">{booking.userEmail}</td>
-    <td className="border p-2 border-gray-400"></td>
-    <td className="border p-2 text-red-600 border-gray-400"><BookingCancle booking={booking}></BookingCancle></td>
-      </tr>
-    )}
-  </tbody>
+  const bookings = await res.json();
 
-            </table>
+  return (
+    <div className="w-10/12 mx-auto mt-10">
+
+      <h1 className="text-2xl font-bold text-center mb-6 text-[#163161]">
+        My Booking Sessions
+      </h1>
+
+      {/* EMPTY STATE */}
+      {(!bookings || bookings.length === 0) ? (
+        <div className="text-center py-20">
+          <p className="text-gray-500 text-lg">
+            No bookings yet!
+          </p>
         </div>
-    );
+      ) : (
+
+        <div className="overflow-x-auto shadow mb-10">
+
+          <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
+
+            {/* TABLE HEAD */}
+            <thead className="bg-[#163161] text-white">
+              <tr>
+                <th className="p-3 text-left">Tutor</th>
+                <th className="p-3 text-left">Student Name</th>
+                <th className="p-3 text-left">Student Email</th>
+                <th className="p-3 text-left">Phone</th>
+                <th className="p-3 text-center">Status</th>
+                <th className="p-3 text-center">Action</th>
+              </tr>
+            </thead>
+
+            {/* TABLE BODY */}
+            <tbody>
+              {bookings.map((booking) => (
+                <tr key={booking._id} className="border-b hover:bg-gray-50">
+
+                  <td className="p-3 ">
+                    <span className="font-medium">
+                      {booking.TutorName}
+                    </span>
+                  </td>
+
+                  <td className="p-3">
+                    {booking.studentName}
+                  </td>
+
+                  <td className="p-3 text-gray-600">
+                    {booking.userEmail}
+                  </td>
+
+                  <td className="p-3">
+                    {booking.phone}
+                  </td>
+
+                  <td className="p-3 text-center">
+                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">
+                      Confirmed
+                    </span>
+                  </td>
+
+                  <td className="p-3 text-center text-red-600">
+                    <BookingCancle booking={booking} />
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        </div>
+      )}
+
+    </div>
+  );
 };
 
 export default MyBookingPage;

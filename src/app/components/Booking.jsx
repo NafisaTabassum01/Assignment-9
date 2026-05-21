@@ -23,16 +23,28 @@ export function Booking({ tutor }) {
   const [studentName, setStudentName] = useState("");
   const [phone, setPhone] = useState("");
 
-  const handleBooking = async () => {
-    const bookingData = {
-      studentName,
-      phone,
-      TutorName,
-      tutorId: _id,
-      userEmail: user?.email,
-      userId :user?.id,
-    };
- 
+const handleBooking = async () => {
+  if (!studentName.trim()) {
+    toast.error("Student name is required");
+    return;
+  }
+
+  if (!phone.trim()) {
+    toast.error("Phone number is required");
+    return;
+  }
+
+  const bookingData = {
+    studentName,
+    phone,
+    TutorName,
+    tutorId: _id,
+    userEmail: user?.email,
+    userId: user?.id,
+  };
+
+  
+
     console.log(bookingData)
     
     const res =await fetch('http://localhost:5000/booking',{
@@ -86,6 +98,7 @@ export function Booking({ tutor }) {
                   >
                     <Label>Student Name</Label>
                     <Input
+                       required
                       placeholder="Enter your name"
                       value={studentName}
                       onChange={(e) => setStudentName(e.target.value)}
@@ -100,6 +113,7 @@ export function Booking({ tutor }) {
                   >
                     <Label>Phone</Label>
                     <Input
+                      required
                       placeholder="Enter your phone number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
@@ -160,3 +174,5 @@ export function Booking({ tutor }) {
     </Modal>
   );
 }
+
+

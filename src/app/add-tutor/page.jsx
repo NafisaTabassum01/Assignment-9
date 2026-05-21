@@ -3,14 +3,32 @@
 import { Button, FieldError, Input, Label, ListBox, TextField,Select, TextArea } from '@heroui/react';
 // import { headers } from 'next/headers';
 import React from 'react';
+import toast from 'react-hot-toast';
+import { authClient } from "@/lib/auth-client";
 
 const AddTutorPage =  () => {
+  
+const { data: session } = authClient.useSession();
+const user = session?.user;
+
+
 
 const onSubmit =async (e)=>{
   e.preventDefault()
   const formData = new FormData(e.currentTarget)
   const tutor = Object.fromEntries(formData.entries())
-  console.log(tutor)
+  // console.log(tutor)
+
+
+
+  const tutorData = {
+    ...tutor,
+    userId: user?.id,
+    userEmail: user?.email,
+  };
+
+console.log(tutorData)
+
 
 
   const res = await fetch('http://localhost:5000/tutor',{
@@ -19,11 +37,17 @@ const onSubmit =async (e)=>{
         'content-type' : 'application/json'
 
     },
-    body: JSON.stringify(tutor)
+    // body: JSON.stringify(tutor)
+    // body: JSON.stringify(tutor)
+    body: JSON.stringify(tutorData)
 
   })
   const data = await res.json()
- // toast
+  
+      window.location.reload();
+     toast.success("Tutor added successfully!")
+
+
 }
 
     return (

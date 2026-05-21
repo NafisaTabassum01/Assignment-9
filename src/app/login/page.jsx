@@ -28,6 +28,7 @@ const LoginPage = () => {
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
 
+    // console.log(user)
     const { data, error } = await authClient.signIn.email({
       email: user.email,
       password: user.password,
