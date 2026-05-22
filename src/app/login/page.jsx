@@ -12,7 +12,7 @@ import {
 } from "@heroui/react";
 
 import { Check } from "lucide-react";
-import React from "react";
+import { useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";

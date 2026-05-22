@@ -2,6 +2,7 @@ import Image from "next/image";
 import Banner from "./components/Banner";
 import ExtraSection from "./components/ExtraSection";
 import ExtraSection2 from "./components/ExtraSection2";
+import Featured from "./components/Featured";
 
 export const metadata = {
   title: "Home",
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <div>
       <Banner></Banner>
+      <Featured></Featured>
       <ExtraSection></ExtraSection>
       <ExtraSection2></ExtraSection2>
     </div>
