@@ -3,6 +3,12 @@ import Banner from "./components/Banner";
 import ExtraSection from "./components/ExtraSection";
 import ExtraSection2 from "./components/ExtraSection2";
 
+export const metadata = {
+  title: "Home",
+};
+
+
+
 export default function Home() {
   return (
     <div>

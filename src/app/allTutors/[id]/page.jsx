@@ -31,9 +31,6 @@ const TutorDetailsPage = async ({ params }) => {
   }
 
 
-// const {token} = await auth.api.getToken({
-//   headers : await headers()
-// })
 
 let token = null;
 
@@ -47,13 +44,6 @@ try {
 }
 
 
-// const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${id}`, {
-//     cache: "no-store" ,
-
-//   headers: {
-//     authorization : `Bearer ${token}`
-//   },
-// });
 
 const res = await fetch(
   `${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${id}`,

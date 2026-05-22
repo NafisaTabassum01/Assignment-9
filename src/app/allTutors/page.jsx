@@ -5,6 +5,11 @@
 import SearchBar from "../components/SearchBar";
 import TutorCard from "../components/TutorCard";
 
+
+export const metadata = {
+  title: "All Tutors",
+};
+
 // const AllTutorPage = async () => {
 //     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor`)
 //     const tutors = await res.json()
@@ -76,5 +81,6 @@ const AllTutorPage = async ({ searchParams }) => {
     </div>
   );
 };
+
 
 export default AllTutorPage;

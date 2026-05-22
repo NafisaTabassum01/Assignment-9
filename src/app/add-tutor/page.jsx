@@ -2,9 +2,10 @@
 
 import { Button, FieldError, Input, Label, ListBox, TextField,Select, TextArea } from '@heroui/react';
 // import { headers } from 'next/headers';
-import React from 'react';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { authClient } from "@/lib/auth-client";
+
 
 const AddTutorPage =  () => {
   
@@ -52,11 +53,14 @@ console.log(tutorData)
       window.location.reload();
      toast.success("Tutor added successfully!")
 
-
 }
+    useEffect(() => {
+  document.title = "Add Tutor";
+}, []);
+
 
     return (
-<div>
+         <div>
             <form onSubmit={onSubmit}
             className="p-10 bg-white border border-gray-100 text-[#163161] space-y-8 w-full mx-auto pb-5 my-12 shadow-2xl rounded-2xl md:w-6/12 "
           >

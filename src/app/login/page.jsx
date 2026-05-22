@@ -52,6 +52,9 @@ const handleGoogleSignin = async () => {
     provider: "google",
   });
 }
+    useEffect(() => {
+  document.title = "Login";
+}, []);
 
 
 

@@ -4,6 +4,10 @@ import { headers } from 'next/headers';
 import React from 'react';
 import Image from 'next/image';
 import { BookingCancle } from '../components/BookingCancle';
+export const metadata = {
+  title: "My Booking",
+};
+
 
 const MyBookingPage = async () => {
 
