@@ -24,7 +24,7 @@ export function Booking({ tutor }) {
     try {
       // SLOT CHECK + DECREMENT
       const patchRes = await fetch(
-        `http://localhost:5000/tutor/slot/${_id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/slot/${_id}`,
         { method: "PATCH" }
       );
 
@@ -46,7 +46,7 @@ export function Booking({ tutor }) {
       console.log(tokenData)
 
 
-      const bookingRes = await fetch("http://localhost:5000/booking", {
+      const bookingRes = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
         method: "POST",
         headers: { 'content-type': 'application/json',
                    authorization : `Bearer ${tokenData?.token}` 

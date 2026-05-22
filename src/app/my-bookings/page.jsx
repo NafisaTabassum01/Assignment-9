@@ -1,4 +1,4 @@
-
+export const dynamic = "force-dynamic";
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import React from 'react';
@@ -13,17 +13,26 @@ const MyBookingPage = async () => {
 
   const user = session?.user;
 
+//   if (!id) return <div>Invalid ID</div>;
+// if (!user?.id) return <div>Please login</div>;
+
   const {token} = await auth.api.getToken({
     headers : await headers()
   })
   
 
-  const res = await fetch(`http://localhost:5000/booking/${user?.id}` , {
-      headers: {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${user?.id}` , {
+      
+      cache: "no-store",
+
+    headers: {
         authorization : `Bearer ${token}`
       },
     
   });
+if (!res.ok) {
+  return <div>Failed to load data</div>;
+}
 
   const bookings = await res.json();
 
@@ -34,7 +43,7 @@ const MyBookingPage = async () => {
         My Booking Sessions
       </h1>
 
-      {/* EMPTY STATE */}
+      
       {(!bookings || bookings.length === 0) ? (
         <div className="text-center py-20">
           <p className="text-gray-500 text-lg">
@@ -47,7 +56,6 @@ const MyBookingPage = async () => {
 
           <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
 
-            {/* TABLE HEAD */}
             <thead className="bg-[#163161] text-white">
               <tr>
                 <th className="p-3 text-left">Tutor</th>
@@ -59,7 +67,6 @@ const MyBookingPage = async () => {
               </tr>
             </thead>
 
-            {/* TABLE BODY */}
             <tbody>
               {bookings.map((booking) => (
                 <tr key={booking._id} className="border-b hover:bg-gray-50">

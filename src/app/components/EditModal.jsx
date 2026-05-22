@@ -12,6 +12,7 @@ import {
 import { ListBox, Select } from "@heroui/react";
 import { FaEdit } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 export function EditModal({ tutor }) {
   const router = useRouter();
@@ -47,7 +48,7 @@ export function EditModal({ tutor }) {
     const {data : tokenData} = await authClient.token()
     console.log(tokenData)
     
-    const res = await fetch(`http://localhost:5000/tutor/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -59,10 +60,12 @@ export function EditModal({ tutor }) {
 
     const result = await res.json();
 
-    if (res.ok && result.modifiedCount > 0) {
-      router.refresh();
-    }
-  };
+if (res.ok && result.modifiedCount > 0) {
+  toast.success("Tutor details updated successfully!");
+
+  
+    window.location.reload();
+}  };
 
   return (
     <Modal>

@@ -19,7 +19,7 @@ const {data : tokenData} = await authClient.token()
 console.log(tokenData)
     
     
-    const res = await fetch(`http://localhost:5000/tutor/${_id}`,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${_id}`,
         {
         method:'DELETE',
          headers:{
@@ -29,8 +29,14 @@ console.log(tokenData)
      },
     })
        const data = await res.json()
-router.push('/allTutors')
-router.refresh()
+  if (res.ok && data.deletedCount > 0) {
+    toast.success("Tutor deleted successfully!");
+    router.push("/allTutors");
+    router.refresh();
+  } else {
+    toast.error("Failed to delete tutor!");
+  }
+
        console.log(data)
   }
 

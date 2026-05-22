@@ -1,5 +1,5 @@
 
-
+export const dynamic = "force-dynamic";
 import { Booking } from "@/app/components/Booking";
 import {DeleteAlert} from "@/app/components/DeleteAlert";
 import { EditModal } from "@/app/components/EditModal";
@@ -18,18 +18,62 @@ import {
 } from "react-icons/fa6";
 
 const TutorDetailsPage = async ({ params }) => {
-  const { id } = await params;
+  const { id } = await  params;
 
-const {token} = await auth.api.getToken({
-  headers : await headers()
-})
+//   if (!id) return <div>Invalid ID</div>;
+// if (!user?.id) return <div>Please login</div>;
 
-const res = await fetch(`http://localhost:5000/tutor/${id}`, {
-  
-  headers: {
-    authorization : `Bearer ${token}`
-  },
-});
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session?.user) {
+    return <div>Please login to view tutor details</div>;
+  }
+
+
+// const {token} = await auth.api.getToken({
+//   headers : await headers()
+// })
+
+let token = null;
+
+try {
+  const result = await auth.api.getToken({
+    headers: await headers(),
+  });
+  token = result?.token;
+} catch (err) {
+  token = null;
+}
+
+
+// const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${id}`, {
+//     cache: "no-store" ,
+
+//   headers: {
+//     authorization : `Bearer ${token}`
+//   },
+// });
+
+const res = await fetch(
+  `${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${id}`,
+  {
+    cache: "no-store",
+    headers: token
+      ? { authorization: `Bearer ${token}` }
+      : {},
+  }
+);
+
+
+if (!res.ok) {
+  return (
+    <div className="text-center mt-10 text-red-500">
+      Failed to load tutor details (Unauthorized or server error)
+    </div>
+  );
+}
+console.log(process.env.NEXT_PUBLIC_SERVER_URL)
 
   const tutor = await res.json();
 

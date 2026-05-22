@@ -11,12 +11,13 @@ const MyTutor = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
+  console.log(user?.id)
+
   const [tutors, setTutors] = useState([]);
 
   // useEffect(() => {
   //   if (!user?.id) return;
 
-  //   fetch(`http://localhost:5000/tutor/user/${user.id}`)
   //     .then(res => res.json())
   //     .then(data => setTutors(data));
   // }, [user?.id]);
@@ -25,26 +26,34 @@ useEffect(() => {
   const fetchData = async () => {
     if (!user?.id) return;
 
-    const session = await authClient.getSession();
+const tokenData = await authClient.token();
 
-    const token = session?.data?.token;
+const token = tokenData?.data?.token;
 
-    const res = await fetch(
-      `http://localhost:5000/tutor/user/${user.id}`,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    console.log("TOKEN:", token);
 
-    const data = await res.json();
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/user/${user.id}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    setTutors(data);
+      const result = await res.json();
+
+      console.log(result);
+
+      setTutors(Array.isArray(result) ? result : []);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   fetchData();
-}, [user?.id]);
+}, [user]);
 
   return (
     <div className="w-10/12 mx-auto mt-10">
@@ -68,7 +77,9 @@ useEffect(() => {
 
             {/* TABLE BODY */}
             <tbody>
-              {tutors.map((t) => (
+              {/* {tutors.map((t) => ( */}
+              {Array.isArray(tutors) &&
+                tutors.map((t) => (
                 <tr key={t._id} className="border-b hover:bg-gray-50">
 
                   {/* Tutor Info */}

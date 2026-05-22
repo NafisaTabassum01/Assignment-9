@@ -20,7 +20,6 @@ const onSubmit =async (e)=>{
   // console.log(tutor)
 
 
-
 const tutorData = {
   ...tutor,
   TotalSlot: Number(tutor.TotalSlot),
@@ -28,6 +27,7 @@ const tutorData = {
   userId: user?.id,
   userEmail: user?.email,
 };
+console.log(tutorData)
 
 // console.log(tutorData)
 
@@ -35,7 +35,7 @@ const tutorData = {
   console.log(tokenData)
 
 
-  const res = await fetch('http://localhost:5000/tutor',{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor`,{
         method:'POST',
     headers:{
         'content-type' : 'application/json',
