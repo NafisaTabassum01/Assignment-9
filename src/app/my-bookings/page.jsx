@@ -73,7 +73,7 @@ if (!res.ok) {
 
             <tbody>
               {bookings.map((booking) => (
-                <tr key={booking._id} className="border-b hover:bg-gray-50">
+                <tr key={booking._id} className="border-b">
 
                   <td className="p-3 ">
                     <span className="font-medium">

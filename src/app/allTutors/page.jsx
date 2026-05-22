@@ -10,29 +10,6 @@ export const metadata = {
   title: "All Tutors",
 };
 
-// const AllTutorPage = async () => {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor`)
-//     const tutors = await res.json()
-
-// console.log("ENV URL:", process.env.NEXT_PUBLIC_SERVER_URL);
-
-//     return (
-//         <div >
-//             <div className='w-10/12 mx-auto py-12'>
-//           <p className='text-2xl font-bold text-[#163161] pb-4 text-center'>All Tutors</p>
-//     <div className='grid grid-cols-1 gap-12 md:grid-cols-3 '>
-//                 {
-//                     tutors.map(tutor=><TutorCard key={tutor._id}  tutor={tutor}></TutorCard>)
-//                 }
-//             </div>
-//             </div>
-
-            
-//         </div>
-//     );
-// };
-
-// export default AllTutorPage;
 
 const AllTutorPage = async ({ searchParams }) => {
 

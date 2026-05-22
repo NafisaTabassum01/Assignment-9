@@ -38,7 +38,7 @@ const SearchBar = ({ queryKey = "searchTerm", placeholder }) => {
 
       <button
         onClick={handleSearch}
-        className="h-10 px-6 mr-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
+        className="h-10 px-4 mr-2 rounded bg-[#163161] text-white font-semibold hover:bg-blue-700 transition-colors"
       >
         Search
       </button>

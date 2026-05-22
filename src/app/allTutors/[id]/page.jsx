@@ -20,8 +20,6 @@ import {
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await  params;
 
-//   if (!id) return <div>Invalid ID</div>;
-// if (!user?.id) return <div>Please login</div>;
 
   const session = await auth.api.getSession({
     headers: await headers(),

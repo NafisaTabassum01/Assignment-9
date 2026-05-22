@@ -80,7 +80,7 @@ const token = tokenData?.data?.token;
               {/* {tutors.map((t) => ( */}
               {Array.isArray(tutors) &&
                 tutors.map((t) => (
-                <tr key={t._id} className="border-b hover:bg-gray-50">
+                <tr key={t._id} className="border-b ">
 
                   {/* Tutor Info */}
                   <td className="p-3 flex items-center gap-3">

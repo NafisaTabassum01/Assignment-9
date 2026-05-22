@@ -7,8 +7,16 @@ import { Avatar, Button } from "@heroui/react";
 import Link from "next/link";
 import React from "react";
 import { FaGraduationCap } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathname = usePathname();
+const isActive = (path) => {
+  if (path === "/") return pathname === "/";
+  return pathname.startsWith(path);
+};
+
+
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
@@ -32,38 +40,44 @@ const Navbar = () => {
         {/* DESKTOP NAV */}
         <div className="hidden lg:flex items-center gap-6">
 
-          <Link href="/">
-            <p className="text-[18px] font-semibold text-[#163161] hover:text-[#0f2447] transition">
-              Home
-            </p>
-          </Link>
-
-          <Link href="/allTutors">
-            <p className="text-[18px] font-semibold text-[#163161] hover:text-[#0f2447] transition">
-              Tutors
-            </p>
-          </Link>
-
+<Link href="/">
+  <p className={`text-[18px] font-semibold transition relative
+    ${isActive("/") ? "after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[3px] after:bg-[#163161]" : ""}
+  `}>
+    Home
+  </p>
+</Link>
+<Link href="/allTutors">
+  <p className={`text-[18px] font-semibold transition relative
+    ${isActive("/allTutors") ? "after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[3px] after:bg-[#163161]" : ""}
+  `}>
+    Tutors
+  </p>
+</Link>
           {user && (
             <>
-              <Link href="/add-tutor">
-                <p className="text-[18px] font-semibold text-[#163161] hover:text-[#0f2447] transition">
-                  Add Tutor
-                </p>
-              </Link>
+<Link href="/add-tutor">
+  <p className={`text-[18px] font-semibold transition relative
+    ${isActive("/add-tutor") ? "after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[3px] after:bg-[#163161]" : ""}
+  `}>
+    Add Tutor
+  </p>
+</Link>
 
-              <Link href="/my-tutors">
-                <p className="text-[18px] font-semibold text-[#163161] hover:text-[#0f2447] transition">
-                  My Tutors
-                </p>
-              </Link>
-
-              <Link href="/my-bookings">
-                <p className="text-[18px] font-semibold text-[#163161] hover:text-[#0f2447] transition">
-                  My Booked Sessions
-                </p>
-              </Link>
-            </>
+<Link href="/my-tutors">
+  <p className={`text-[18px] font-semibold transition relative
+    ${isActive("/my-tutors") ? "after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[3px] after:bg-[#163161]" : ""}
+  `}>
+    My Tutors
+  </p>
+</Link>
+<Link href="/my-bookings">
+  <p className={`text-[18px] font-semibold transition relative
+    ${isActive("/my-bookings") ? "after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[3px] after:bg-[#163161]" : ""}
+  `}>
+    My Booked Sessions
+  </p>
+</Link>            </>
           )}
         </div>
 
