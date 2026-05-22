@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { EditModal } from "./EditModal";
 import { DeleteAlert } from "./DeleteAlert";
 import Image from "next/image";
+// import NoTutor from "../../assets/myTutor.png";
 
 const MyTutor = () => {
   const { data: session } = authClient.useSession();
@@ -58,7 +59,7 @@ const token = tokenData?.data?.token;
   return (
     <div className="w-10/12 mx-auto mt-10">
       {tutors.length === 0 ? (
-        <p className="text-center text-gray-500">No tutors found</p>
+        <p className="text-center text-gray-500 my-30 text-[24px]">No tutors added yet!</p>
       ) : (
         <div className="overflow-x-auto shadow mb-10">
           <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
