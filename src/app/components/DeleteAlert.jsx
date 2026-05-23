@@ -1,44 +1,90 @@
+// "use client";
+
+// import { authClient } from "@/lib/auth-client";
+// import {AlertDialog, Button} from "@heroui/react";
+// import { useRouter } from "next/navigation";
+// import { MdDeleteOutline } from "react-icons/md";
+
+
+// export function DeleteAlert({tutor}) {
+// const router = useRouter();
+//      const {
+//     _id,
+//     TutorName,
+//   } = tutor;
+
+//   const handleDelete = async () =>{
+
+// const {data : tokenData} = await authClient.token()
+// console.log(tokenData)
+    
+    
+//     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${_id}`,
+//         {
+//         method:'DELETE',
+//          headers:{
+//         'content-type' : 'application/json' ,
+//         authorization : `Bearer ${tokenData?.token}` 
+    
+//      },
+//     })
+//        const data = await res.json()
+//   if (res.ok && data.deletedCount > 0) {
+//     toast.success("Tutor deleted successfully!");
+//     router.push("/allTutors");
+//     router.refresh();
+//   } else {
+//     toast.error("Failed to delete tutor!");
+//   }
+
+//   }
+
+
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import {AlertDialog, Button} from "@heroui/react";
+import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { MdDeleteOutline } from "react-icons/md";
+import { toast } from "react-hot-toast";
 
+export function DeleteAlert({ tutor }) {
+  const router = useRouter();
 
-export function DeleteAlert({tutor}) {
-const router = useRouter();
-     const {
-    _id,
-    TutorName,
-  } = tutor;
+  const { _id, TutorName } = tutor;
 
-  const handleDelete = async () =>{
+  const handleDelete = async () => {
+    const { data: tokenData } = await authClient.token();
 
-const {data : tokenData} = await authClient.token()
-console.log(tokenData)
-    
-    
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${_id}`,
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${_id}`,
         {
-        method:'DELETE',
-         headers:{
-        'content-type' : 'application/json' ,
-        authorization : `Bearer ${tokenData?.token}` 
-    
-     },
-    })
-       const data = await res.json()
-  if (res.ok && data.deletedCount > 0) {
-    toast.success("Tutor deleted successfully!");
-    router.push("/allTutors");
-    router.refresh();
-  } else {
-    toast.error("Failed to delete tutor!");
-  }
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+        }
+      );
 
-       console.log(data)
-  }
+      const data = await res.json();
+
+      if (res.ok && data.deletedCount > 0) {
+        toast.success("Tutor deleted successfully!");
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        toast.error("Failed to delete tutor!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.log(error);
+    }
+  };
+
 
 
   return (

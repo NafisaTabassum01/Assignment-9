@@ -61,6 +61,7 @@ export function EditModal({ tutor }) {
     const result = await res.json();
 
 if (res.ok && result.modifiedCount > 0) {
+  
   toast.success("Tutor details updated successfully!");
 
   
@@ -104,15 +105,90 @@ if (res.ok && result.modifiedCount > 0) {
                     <Input />
                   </TextField>
 
-                  <TextField name="Subject" defaultValue={Subject} isRequired>
+                  {/* <TextField name="Subject" defaultValue={Subject} isRequired>
                     <Label>Subject</Label>
                     <Input />
-                  </TextField>
+                  </TextField> */}
 
-                  <TextField name="TeachingMode" defaultValue={TeachingMode} isRequired>
-                    <Label>Teaching Mode</Label>
-                    <Input />
-                  </TextField>
+       <TextField name="Subject" isRequired >
+            <Select
+             defaultValue={Subject}
+              name="Subject"
+              isRequired
+              className="w-full "
+              placeholder="Select category"
+            >
+              <Label>Subject</Label>
+              <Select.Trigger className="rounded-2xl shadow">
+                <Select.Value />
+                <Select.Indicator />
+              </Select.Trigger>
+              <Select.Popover>
+                <ListBox>
+                  <ListBox.Item id="physics" textValue="physics">
+                    physics
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Chemistry" textValue="Chemistry">
+                    Chemistry
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Biology" textValue="Biology">
+                    Biology
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Math" textValue="Math">
+                    Math
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="English" textValue="English">
+                    English
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Ict" textValue="Ict">
+                    Ict
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                </ListBox>
+              </Select.Popover>
+            </Select>
+          </TextField>
+
+
+
+       <TextField name="TeachingMode" isRequired >
+            <Select
+            defaultValue={TeachingMode}
+              name="TeachingMode"
+              isRequired
+              className="w-full "
+              placeholder="Teaching Mode"
+            >
+              <Label>Teaching Mode</Label>
+              <Select.Trigger className="rounded-2xl shadow">
+                <Select.Value />
+                <Select.Indicator />
+              </Select.Trigger>
+              <Select.Popover>
+                <ListBox>
+
+                  <ListBox.Item id="Online" textValue="Online">
+                    Online
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Offline" textValue="Offline">
+                    Offline
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                  <ListBox.Item id="Both" textValue="Both">
+                    Both
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                </ListBox>
+              </Select.Popover>
+            </Select>
+          </TextField>
+
 
                   <TextField name="TotalSlot" defaultValue={TotalSlot} isRequired>
                     <Label>Total Slot</Label>
