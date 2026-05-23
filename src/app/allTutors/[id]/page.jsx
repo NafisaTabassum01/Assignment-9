@@ -16,6 +16,10 @@ import {
   FaClock,
   FaCalendarDays,
 } from "react-icons/fa6";
+export const metadata = {
+  title: "Tutor | MediQueue",
+};
+
 
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await  params;
