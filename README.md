@@ -18,9 +18,9 @@ MediQueue is a modern tutor booking platform where students can browse tutors, b
 
 ## 🛠️ Technologies Used
 
-- React.js
+- Next.js
 - Tailwind CSS
 - Firebase Authentication
-- Node.js & Express.js
+- Express.js
 - MongoDB
 - JWT
