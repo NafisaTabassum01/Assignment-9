@@ -61,6 +61,8 @@ export function Booking({ tutor }) {
           tutorId: _id,
           userEmail: user?.email,
           userId: user?.id,
+            status: "confirmed",
+
         }),
       });
 

@@ -1,6 +1,6 @@
 # 🎓 MediQueue – Tutor Booking System
 
-🔗 Live Site: 
+🔗 Live Site: https://mediqueue-mocha.vercel.app/
 
 ## 📌 Project Overview
 MediQueue is a modern tutor booking platform where students can browse tutors, book learning sessions, and manage their scheduled classes easily. The system helps reduce scheduling conflicts and provides a smooth learning experience.

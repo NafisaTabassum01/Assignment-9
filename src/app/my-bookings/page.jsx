@@ -94,14 +94,32 @@ if (!res.ok) {
                   </td>
 
                   <td className="p-3 text-center">
-                    <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">
+                    {/* <span className="px-3 py-1 rounded-full text-sm bg-green-100 text-green-700">
                       Confirmed
-                    </span>
+                    </span> */}
+                  
+                <span
+                  className={`px-3 py-1 rounded-full text-sm ${
+                    booking.status === "cancelled"
+                      ? "bg-red-100 text-red-700"
+                      : "bg-green-100 text-green-700"
+                           }`}
+                         >
+                           {booking.status}
+                         </span>
+                        
                   </td>
 
-                  <td className="p-3 text-center text-red-600">
-                    <BookingCancle booking={booking} />
-                  </td>
+<td className="p-3 text-center text-red-600">
+  {booking.status !== "cancelled" && (
+    <BookingCancle booking={booking} />
+  )}
+</td>
+
+
+
+
+                
 
                 </tr>
               ))}
