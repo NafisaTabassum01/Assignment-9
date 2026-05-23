@@ -7,27 +7,66 @@ import toast from "react-hot-toast";
 export function BookingCancle({ booking }) {
   const { TutorName, _id } = booking;
 
-const handleCancleBooking = async ()=>{
+// const handleCancleBooking = async ()=>{
 
-  const {data : tokenData} = await authClient.token()
-  console.log(tokenData)
+//   const {data : tokenData} = await authClient.token()
+//   console.log(tokenData)
   
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${_id}`,{
-method: "PATCH",
+//     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${_id}`,{
+// method: "PATCH",
 
-headers: {
-        "content-type": "application/json",
-        authorization : `Bearer ${tokenData?.token}` ,
-      },
+// headers: {
+//         "content-type": "application/json",
+//         authorization : `Bearer ${tokenData?.token}` ,
+//       },
 
-    })
-    const data = await res.json()
+//     })
+//     const data = await res.json()
 
-     toast.success("Booking canceled successfully!")
+//      toast.success("Booking canceled successfully!")
+
+//     window.location.reload();
+
+// }
+
+
+const handleCancleBooking = async () => {
+  try {
+    const { data: tokenData } = await authClient.token();
+
+    console.log("TOKEN DATA:", tokenData);
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+      }
+    );
+
+    console.log("RESPONSE STATUS:", res.status);
+
+    const data = await res.json();
+
+    console.log("RESPONSE DATA:", data);
+
+    if (!res.ok) {
+      return toast.error(data.message || "Failed");
+    }
+
+    toast.success("Booking canceled successfully!");
 
     window.location.reload();
 
-}
+  } catch (error) {
+    console.log("FULL ERROR:", error);
+
+    toast.error("Something went wrong");
+  }
+};
 
   return (
     <AlertDialog>
